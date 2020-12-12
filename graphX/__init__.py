@@ -72,7 +72,11 @@ class Graph:
         self.edges[source][target] = value
         self.canvas.edge((source, target)).add(directed=directed)
 
-    def traverse_edge(self, source, target, color="yellow"):
+    def del_edge(self, source, target):
+        self.edges[source].pop(target, None)
+        self.canvas.edge((source, target)).remove()
+
+    def traverse_edge(self, source, target, color="#05f"):
         self.canvas.edge((source, target)).traverse(color)
 
     # general, graph-wide, methods 
