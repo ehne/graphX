@@ -7,6 +7,9 @@ A graph theory library that isn't *super* gross.
   
 - [Installing](#installing )
 - [Quick Start](#quick-start )
+  - [Webserver](#webserver )
+  - [Jupyter Notebook](#jupyter-notebook )
+- [The `Graph` Object](#the-graph-object )
 - [Methods](#methods )
   - [Graph Methods:](#graph-methods )
       - [`run_web()`](#run_web )
@@ -41,7 +44,10 @@ graphX relies on [algorthimX](https://algrx.github.io ) for visualisation. So yo
   
 ##  Quick Start
   
-for using with your favourite text editor and running a server (recomened):
+There are two ways to get up and running with graphX: via a webserver, or by using jupyter notebooks. They both have their pros and cons.
+  
+###  Webserver
+  
 ```python
 import graphX as gx
   
@@ -55,6 +61,34 @@ def code():
   
 code()
 ```
+  
+###  Jupyter Notebook
+  
+```py
+import graphX as gx
+g = gx.Graph(is_jupyter=True)
+  
+# run any methods you want and the graph will auto-update.
+```
+  
+##  The `Graph` Object
+  
+You can create a new graph by making a new instance of the Graph object.
+```py
+# simplest new graph (webserver)
+g = gx.Graph()
+  
+# using a custom port for the webserver
+g = gx.Graph(port=4000) # default is 5050
+  
+# simplest new graph (jupyter)
+g = gx.Graph(is_jupyter=True)
+  
+# changing the size of the jupyter widget
+g = gx.Graph(width=400, height=100) # default is w=300 h=200
+```
+  
+  
   
 ##  Methods
   
@@ -191,7 +225,8 @@ graphX doesn't support having multiple edges between the same pair of nodes. Ins
 ```py
 g.add_nodes("AB")
 g.add_edge("A","B", 2)
-g.add_edge("A","B", 3) # this won't make multiple edges, just use the latest one.
+g.add_edge("A","B", 3) 
+# this won't make multiple edges, just use the latest one.
   
 # so instead, use:
 g.add_nodes("CD")
@@ -202,7 +237,7 @@ g.add_edge("a", "D", 0)
 g.add_edge("b", "D", 0)
 ```
   
-whilst this might initially look quite gross, it is better to be explicit than implicit. And from my experience, having the same two nodes connected by more than one edge is rarely used.
+whilst this might initially look quite yucky, it is better to be explicit than implicit. And from my experience, having the same two nodes connected by more than one edge is rarely used.
   
   
 ---
