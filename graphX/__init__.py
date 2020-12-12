@@ -28,6 +28,8 @@ class Graph:
         if is_jupyter:
             self.canvas = ax.jupyter_canvas()
             self.canvas.size((width, height))
+            # print("loaded Canvas")
+            display(self.canvas)
         else:
             self.server = ax.http_server(port=port)
             self.canvas = self.server.canvas()
