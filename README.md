@@ -20,13 +20,14 @@ A graph theory library that isn't *super* gross.
       - [`del_node(val)`](#del_nodeval )
       - [`add_edge(source, target)`](#add_edgesource-target )
       - [`del_edge(source, target)`](#del_edgesource-target )
-      - [`pause(time=1)`](#pausetime1 )
+      - [`traverse_edge(source, target)`](#traverse_edgesource-target )
+      - [`pause(time)`](#pausetime )
       - [`clear()`](#clear )
   - [Node Methods:](#node-methods )
       - [`set_attr(attr, value)`](#set_attrattr-value )
       - [`get_attr(attr)`](#get_attrattr )
 - [Important Notes](#important-notes )
-      - [Multiple Edges Between Two Nodes](#multiple-edges-between-two-nodes )
+    - [Multiple Edges Between Two Nodes](#multiple-edges-between-two-nodes )
 - [Previous Works](#previous-works )
   
 ##  Installing
@@ -176,9 +177,24 @@ g.add_edge("B", "C")
 g.del_edge("A", "B")
 ```
   
-#####  `pause(time=1)`
+#####  `traverse_edge(source, target)`
   
-pauses the code for `time` seconds.
+animates traversing the edge connecting the source and target nodes.
+```py
+g.add_nodes("ABC")
+g.add_edge("A", "B")
+g.add_edge("B", "C")
+  
+g.traverse_edge("A", "B")
+  
+# use a different colour for the traversal:
+g.traverse_edge("B", "C", color="#fa0") # any css colour works
+# the color argument defaults to "#05f", a high-contrast blue.
+```
+  
+#####  `pause(time)`
+  
+pauses the code for `time` seconds. (defaults to 1 second)
 ```py
 g.add_node("A")
 g.pause()
@@ -218,7 +234,7 @@ n.get_attr("seen") # returns `False`
   
 ##  Important Notes
   
-#####  Multiple Edges Between Two Nodes
+####  Multiple Edges Between Two Nodes
   
 graphX doesn't support having multiple edges between the same pair of nodes. Instead you should create dummy nodes.
   
@@ -250,7 +266,7 @@ whilst this might initially look quite yucky, it is better to be explicit than i
   
 ---
   
-####  <3 Thanks
+####  ❤️ Thanks
   
 Written by [@ehne](https://github.com/ehne ) in 2020/21.  Give this project a star if you found it helpful. 
   

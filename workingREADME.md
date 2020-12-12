@@ -192,7 +192,7 @@ n.get_attr("seen") # returns `False`
 ```
 
 ## Important Notes
-##### Multiple Edges Between Two Nodes
+#### Multiple Edges Between Two Nodes
 graphX doesn't support having multiple edges between the same pair of nodes. Instead you should create dummy nodes.
 
 ```py
@@ -222,5 +222,5 @@ whilst this might initially look quite yucky, it is better to be explicit than i
 
 ---
 
-#### <3 Thanks {ignore}
+#### ❤️ Thanks {ignore}
 Written by [@ehne](https://github.com/ehne) in 2020/21.  Give this project a star if you found it helpful. 
