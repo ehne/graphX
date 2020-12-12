@@ -88,12 +88,16 @@ if __name__ == "__main__":
 
     @g.run_web
     def start():
-        g.add_nodes("ABC")
+        for i in "graphX":
+            g.add_node(i)
+            g.pause(0.5)
         g.pause()
-        g.add_edge("A","B")
-        g.add_edge("A","C")
+        for i in range(len("graphX") -1):
+            g.add_edge("graphX"[i], "graphX"[i+1], directed=True)
+            g.pause(0.25)
         g.pause()
-        g.traverse_edge("B", "C")
+        for i in range(len("graphX") -1):
+            g.traverse_edge("graphX"[i], "graphX"[i+1], color="#50f")
         print(g.get_nodes())
     start()
 
