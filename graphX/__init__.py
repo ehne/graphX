@@ -1,4 +1,6 @@
 import algorithmx as ax
+from pathlib import Path
+import os
 def _remove_dupes(x):
   return list(dict.fromkeys(x))
 
@@ -20,7 +22,7 @@ class Node:
         return self.attrs[attr]
 
 class Graph:
-    def __init__(self, is_jupyter=False, port=5050, width=300, height=200):
+    def __init__(self, is_jupyter=False, port=5050, width=300, height=200, custom_ui=None):
         self.nodes = {}
         self.edges = {}
         self.canvas = ""
@@ -31,7 +33,13 @@ class Graph:
             # print("loaded Canvas")
             display(self.canvas)
         else:
-            self.server = ax.http_server(port=port)
+            if custom_ui == None:
+                # finds the interface html. This is more complicated than it should be
+                base_path = os.path.relpath(__file__)
+                #custom_ui = str((base_path / "/ui.html").resolve())
+                custom_ui = f"{Path(base_path).parent}/ui.html"
+            print("serving ui found at", custom_ui)
+            self.server = ax.http_server(port=port, file=custom_ui)
             self.canvas = self.server.canvas()
 
     # boring running stuff for web
@@ -47,7 +55,7 @@ class Graph:
     def add_node(self, n):
         """adds node "n" to the graph"""
         self.nodes[n] = Node(n)
-        self.canvas.node(Node(n)).add()
+        self.canvas.node(Node(n)).add(color="#423f39")
 
     def add_nodes(self, n_list):
         """runs "add_node" for each node in the iterable"""
@@ -70,13 +78,13 @@ class Graph:
         if target not in self.edges:
             self.edges[target] = {}
         self.edges[source][target] = value
-        self.canvas.edge((source, target)).add(directed=directed)
+        self.canvas.edge((source, target)).add(directed=directed, color="#c8c3b8")
 
     def del_edge(self, source, target):
         self.edges[source].pop(target, None)
         self.canvas.edge((source, target)).remove()
 
-    def traverse_edge(self, source, target, color="#05f"):
+    def traverse_edge(self, source, target, color="#4a83ff"):
         self.canvas.edge((source, target)).traverse(color)
 
     # general, graph-wide, methods 
@@ -92,12 +100,14 @@ if __name__ == "__main__":
             g.add_node(i)
             g.pause(0.5)
         g.pause()
-        for i in range(len("graphX") -1):
-            g.add_edge("graphX"[i], "graphX"[i+1], directed=True)
-            g.pause(0.25)
+        for i in "graphX":
+            for j in "graphX":
+                g.add_edge(i, j)
+                g.pause(0.25)
         g.pause()
         for i in range(len("graphX") -1):
-            g.traverse_edge("graphX"[i], "graphX"[i+1], color="#50f")
+            g.traverse_edge("graphX"[i], "graphX"[i+1])
+            g.pause(0.5)
         print(g.get_nodes())
     start()
 

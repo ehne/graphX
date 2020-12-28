@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" href="https://raw.githubusercontent.com/algrx/algorithmx/master/img/logo.svg?sanitize=true" type="image/svg+xml">
+
+        <title>graphX</title>
+
+        <script src="https://gitcdn.xyz/repo/ehne/26a146ad162a48cd251971641163b8c5/raw/f7a37da7217055c833a3821b303fb8410d75652c/algX.js"></script>
+        <script src="https://d3js.org/d3-color.v2.min.js"></script>
+        <script src="https://d3js.org/d3-dispatch.v2.min.js"></script>
+        <script src="https://d3js.org/d3-ease.v2.min.js"></script>
+        <script src="https://d3js.org/d3-interpolate.v2.min.js"></script>
+        <script src="https://d3js.org/d3-selection.v2.min.js"></script>
+        <script src="https://d3js.org/d3-timer.v2.min.js"></script>
+        <script src="https://d3js.org/d3-transition.v2.min.js"></script>
+        <style>
+            
+            html {
+                height: 100%;
+            }
+            html,body{
+                background-color: #faf9f8;
+            }
+            body {
+                height: 100%;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            }
+
+            .header {
+                display: flex;
+                position: fixed;
+                z-index: 50;
+                top:0;
+                left:0;
+                right:0;
+                background-color: #efedea;
+                padding:8px;
+                align-items: center;
+            }
+            .header__title{
+                font-size: 1.75em;
+                color: #3F3F36
+            }
+            .header__spacer{
+                flex-grow:1
+            }
+            .header__icons {
+                display: inline-flex;
+                justify-self: flex-end;
+                
+            }
+            .header__icons>* {
+                margin-left:8px
+
+            }
+            
+            .hidden {
+                display: none !important;
+            }
+            .button {
+                background-color: #c8c3b8;
+                color:#3F3F36;
+                padding:8px;
+                display: flex;
+                border-radius: 0.4em;
+                cursor: pointer;
+                transition:all cubic-bezier(0.39, 0.575, 0.565, 1) 0.2s;
+            }
+            .button:hover{
+                background-color: rgba(166, 159, 143, 0.8);
+            }
+            .button:active{
+                background-color: #a69f8f;
+            }
+            
+            
+            .output {
+                flex: auto;
+                display: flex;
+                backface-visibility: hidden;
+                z-index:0
+            }
+            
+            .algorithmx {
+                position: absolute;
+            }
+            .icon{
+                width: 1.75em;
+                height:1.75em
+            }
+            small {
+                font-size: 0.6em;
+                margin-left: 8px;
+            }
+            a.link {
+                color:#706c61
+            }
+            a.link:hover{
+                color: #423f39
+            }
+            .button.-is-highlight{
+                animation: button-highlight 0.7s ease 0.5s 2 normal none;
+            }
+            @keyframes button-highlight {
+                0.0%{
+                    background: #c8c3b8;
+                    color: #3F3F36;
+                }
+                100%{
+                    background: #c8c3b8;
+                    color: #3F3F36;
+                }
+                50.2%{
+                    background: #36dca8;
+                    color: #124837;
+                }
+             }
+        </style>
+<style>
+
+:root {
+  --balloon-border-radius: 2px;
+  --balloon-color: #3F3F36;
+  --balloon-text-color: #fff;
+  --balloon-font-size: 12px;
+  --balloon-move: 4px; }
+
+button[aria-label][data-balloon-pos] {
+  overflow: visible; }
+
+[aria-label][data-balloon-pos] {
+  position: relative;
+  cursor: pointer; }
+  [aria-label][data-balloon-pos]:after {
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.18s ease-out 0.18s;
+    text-indent: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    text-shadow: none;
+    font-size: var(--balloon-font-size);
+    background: var(--balloon-color);
+    border-radius: 2px;
+    color: var(--balloon-text-color);
+    border-radius: var(--balloon-border-radius);
+    content: attr(aria-label);
+    padding: .5em 1em;
+    position: absolute;
+    white-space: nowrap;
+    z-index: 10; }
+  [aria-label][data-balloon-pos]:before {
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+    border-top-color: var(--balloon-color);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.18s ease-out 0.18s;
+    content: "";
+    position: absolute;
+    z-index: 10; }
+  [aria-label][data-balloon-pos]:hover:before, [aria-label][data-balloon-pos]:hover:after, [aria-label][data-balloon-pos][data-balloon-visible]:before, [aria-label][data-balloon-pos][data-balloon-visible]:after, [aria-label][data-balloon-pos]:not([data-balloon-nofocus]):focus:before, [aria-label][data-balloon-pos]:not([data-balloon-nofocus]):focus:after {
+    opacity: 1;
+    pointer-events: none; }
+  [aria-label][data-balloon-pos].font-awesome:after {
+    font-family: FontAwesome, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; }
+  [aria-label][data-balloon-pos][data-balloon-break]:after {
+    white-space: pre; }
+  [aria-label][data-balloon-pos][data-balloon-break][data-balloon-length]:after {
+    white-space: pre-line;
+    word-break: break-word; }
+  [aria-label][data-balloon-pos][data-balloon-blunt]:before, [aria-label][data-balloon-pos][data-balloon-blunt]:after {
+    transition: none; }
+  [aria-label][data-balloon-pos][data-balloon-pos="up"]:hover:after, [aria-label][data-balloon-pos][data-balloon-pos="up"][data-balloon-visible]:after, [aria-label][data-balloon-pos][data-balloon-pos="down"]:hover:after, [aria-label][data-balloon-pos][data-balloon-pos="down"][data-balloon-visible]:after {
+    transform: translate(-50%, 0); }
+  [aria-label][data-balloon-pos][data-balloon-pos="up"]:hover:before, [aria-label][data-balloon-pos][data-balloon-pos="up"][data-balloon-visible]:before, [aria-label][data-balloon-pos][data-balloon-pos="down"]:hover:before, [aria-label][data-balloon-pos][data-balloon-pos="down"][data-balloon-visible]:before {
+    transform: translate(-50%, 0); }
+  [aria-label][data-balloon-pos][data-balloon-pos*="-left"]:after {
+    left: 0; }
+  [aria-label][data-balloon-pos][data-balloon-pos*="-left"]:before {
+    left: 5px; }
+  [aria-label][data-balloon-pos][data-balloon-pos*="-right"]:after {
+    right: 0; }
+  [aria-label][data-balloon-pos][data-balloon-pos*="-right"]:before {
+    right: 5px; }
+  [aria-label][data-balloon-pos][data-balloon-pos*="-left"]:hover:after, [aria-label][data-balloon-pos][data-balloon-pos*="-left"][data-balloon-visible]:after, [aria-label][data-balloon-pos][data-balloon-pos*="-right"]:hover:after, [aria-label][data-balloon-pos][data-balloon-pos*="-right"][data-balloon-visible]:after {
+    transform: translate(0, 0); }
+  [aria-label][data-balloon-pos][data-balloon-pos*="-left"]:hover:before, [aria-label][data-balloon-pos][data-balloon-pos*="-left"][data-balloon-visible]:before, [aria-label][data-balloon-pos][data-balloon-pos*="-right"]:hover:before, [aria-label][data-balloon-pos][data-balloon-pos*="-right"][data-balloon-visible]:before {
+    transform: translate(0, 0); }
+  [aria-label][data-balloon-pos][data-balloon-pos^="up"]:before, [aria-label][data-balloon-pos][data-balloon-pos^="up"]:after {
+    bottom: 100%;
+    transform-origin: top;
+    transform: translate(0, var(--balloon-move)); }
+  [aria-label][data-balloon-pos][data-balloon-pos^="up"]:after {
+    margin-bottom: 10px; }
+  [aria-label][data-balloon-pos][data-balloon-pos="up"]:before, [aria-label][data-balloon-pos][data-balloon-pos="up"]:after {
+    left: 50%;
+    transform: translate(-50%, var(--balloon-move)); }
+  [aria-label][data-balloon-pos][data-balloon-pos^="down"]:before, [aria-label][data-balloon-pos][data-balloon-pos^="down"]:after {
+    top: 100%;
+    transform: translate(0, calc(var(--balloon-move) * -1)); }
+  [aria-label][data-balloon-pos][data-balloon-pos^="down"]:after {
+    margin-top: 10px; }
+  [aria-label][data-balloon-pos][data-balloon-pos^="down"]:before {
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+    border-bottom-color: var(--balloon-color); }
+  [aria-label][data-balloon-pos][data-balloon-pos="down"]:after, [aria-label][data-balloon-pos][data-balloon-pos="down"]:before {
+    left: 50%;
+    transform: translate(-50%, calc(var(--balloon-move) * -1)); }
+  [aria-label][data-balloon-pos][data-balloon-pos="left"]:hover:after, [aria-label][data-balloon-pos][data-balloon-pos="left"][data-balloon-visible]:after, [aria-label][data-balloon-pos][data-balloon-pos="right"]:hover:after, [aria-label][data-balloon-pos][data-balloon-pos="right"][data-balloon-visible]:after {
+    transform: translate(0, -50%); }
+  [aria-label][data-balloon-pos][data-balloon-pos="left"]:hover:before, [aria-label][data-balloon-pos][data-balloon-pos="left"][data-balloon-visible]:before, [aria-label][data-balloon-pos][data-balloon-pos="right"]:hover:before, [aria-label][data-balloon-pos][data-balloon-pos="right"][data-balloon-visible]:before {
+    transform: translate(0, -50%); }
+  [aria-label][data-balloon-pos][data-balloon-pos="left"]:after, [aria-label][data-balloon-pos][data-balloon-pos="left"]:before {
+    right: 100%;
+    top: 50%;
+    transform: translate(var(--balloon-move), -50%); }
+  [aria-label][data-balloon-pos][data-balloon-pos="left"]:after {
+    margin-right: 10px; }
+  [aria-label][data-balloon-pos][data-balloon-pos="left"]:before {
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+    border-left-color: var(--balloon-color); }
+  [aria-label][data-balloon-pos][data-balloon-pos="right"]:after, [aria-label][data-balloon-pos][data-balloon-pos="right"]:before {
+    left: 100%;
+    top: 50%;
+    transform: translate(calc(var(--balloon-move) * -1), -50%); }
+  [aria-label][data-balloon-pos][data-balloon-pos="right"]:after {
+    margin-left: 10px; }
+  [aria-label][data-balloon-pos][data-balloon-pos="right"]:before {
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+    border-right-color: var(--balloon-color); }
+  [aria-label][data-balloon-pos][data-balloon-length]:after {
+    white-space: normal; }
+  [aria-label][data-balloon-pos][data-balloon-length="small"]:after {
+    width: 80px; }
+  [aria-label][data-balloon-pos][data-balloon-length="medium"]:after {
+    width: 150px; }
+  [aria-label][data-balloon-pos][data-balloon-length="large"]:after {
+    width: 260px; }
+  [aria-label][data-balloon-pos][data-balloon-length="xlarge"]:after {
+    width: 380px; }
+    @media screen and (max-width: 768px) {
+      [aria-label][data-balloon-pos][data-balloon-length="xlarge"]:after {
+        width: 90vw; } }
+  [aria-label][data-balloon-pos][data-balloon-length="fit"]:after {
+    width: 100%; }
+</style>
+        
+    </head>
+
+    <body onresize="resize()">
+        <div class="header">
+            <div class="header__title">
+                <span>graph<em><b>X</b></em></span>
+                <small><a href="https://github.com/ehne/graphX" class="link">view repo on GitHub</a></small>
+         
+            </div>
+            <div class="header__spacer"></div>
+            <div class="header__icons">
+                <a href="https://github.com/ehne/graphX#quick-start" class="button -with-icon"  target="_blank" rel="noopener" aria-label="graphX documentation (new tab)" data-balloon-pos="down-right">
+                    <svg class="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+                </a>
+                <div class="button -with-icon -is-highlight" onclick="clickPlay()" aria-label="Play/Pause" data-balloon-pos="down-right">
+                    <svg class="icon" id="button-play" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                    <svg class="icon hidden" id="button-pause" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                </div>
+                <div class="button -with-icon" onclick="window.location = window.location" aria-label="Reload the page" data-balloon-pos="down-right">
+                    <svg class="icon" id="button-reset" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"></path></svg>
+
+                </div>
+                
+                
+            </div>
+            
+        </div>
+        <div class="output" id="output"></div>
+    </body>
+
+    <script>
+        function resize() {
+            const width = document.getElementById('output').clientWidth;
+            const height = document.getElementById('output').clientHeight;
+            // immediately resize the canvas
+            canvas.withQ(null).duration(0).size([width, height]);
+        }
+
+        // main canvas
+        let canvas = algorithmx.createCanvas('output');
+        resize();
+
+        // whether the simulation is running (only false while the page is loading)
+        let running = false;
+        // whether the simulation has been stopped
+        let stopped = true;
+
+        function dispatch(eventStr) {
+            // receive messages from the server and send them to the client
+            const event = JSON.parse(eventStr);
+            canvas.dispatch(event);
+        }
+
+        // open the websocket
+        let socket = initSocket(function() {}, dispatch);
+
+        canvas.onreceive(function(event) {
+            // send messages to the server through the websocket
+            socket.send(JSON.stringify(event));
+        })
+
+        function start() {
+            if (running === false) {
+                // trigger start
+                canvas.message('start');
+                // allow time for buffering
+                canvas.queues().stop();
+                setTimeout(() => canvas.queues().start(), 10);
+            } else {
+                // immediately resume all queues
+                canvas.queues().start();
+            }
+            running = true
+            stopped = false
+        }
+
+        function stop() {
+            // stop all queues
+            canvas.queues().stop();
+            stopped = true;
+        }
+
+        function restart() {
+            // immediately cancel all scheduled events on all event queues
+            canvas.queues().clear();
+
+            canvas.queue().start(); // make sure that the main queue is running
+            canvas.duration(0.2).remove(); // clear graphics
+
+            // send a start message
+            canvas.message('start');
+
+            // allow time for buffering and remove animations, then start all queues
+            canvas.queues().stop();
+            setTimeout(function() {
+                resize();
+                canvas.queues().start();
+            }, 330);
+
+            running = true;
+            stopped = false;
+        }
+
+        function clickPlay() {
+            if (stopped) {
+                d3.select('#button-play').attr('class', 'icon hidden');
+                d3.select('#button-pause').attr('class', 'icon');
+                reconnect(start);
+            } else {
+                // data-icon="bx:bx-play-circle"
+                
+                d3.select('#button-pause').attr('class', 'icon hidden');
+                d3.select('#button-play').attr('class', 'icon');
+                stop();
+            }
+        }
+
+        function clickReset() {
+            // rotating animation
+            d3.select('#button-reset').transition().duration(350).styleTween('transform', function rotateTween() {
+                let i = d3.interpolate(0, 360);
+                return function(t) { return "rotate(" + i(t) + "deg)" };
+            })
+            d3.select('#button-play').attr('class', 'icon');
+            d3.select('#button-pause').attr('class', 'icon hidden');
+            restart()
+            reconnect(restart);
+        }
+
+        function reconnect(onConnect) {
+            // attempt to reconnect the socket if the server has restarted
+            if (socket.readyState !== socket.OPEN)
+                socket = initSocket(function (socket) { onConnect() }, dispatch);
+            else onConnect();
+        }
+
+        function initSocket(onOpen, onMessage) {
+            // open socket on next port
+            const socket = new WebSocket('ws://localhost:' + (parseInt(location.port) + 1));
+
+            socket.onopen = function () {
+                if (onOpen) onOpen(socket);
+            }
+            socket.onmessage = function (event) {
+                if (onMessage) onMessage(event.data);
+            }
+            return socket;
+        }
+    </script>
+</html>
