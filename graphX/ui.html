@@ -15,12 +15,42 @@
         <script src="https://d3js.org/d3-timer.v2.min.js"></script>
         <script src="https://d3js.org/d3-transition.v2.min.js"></script>
         <style>
+            :root {
+            --balloon-border-radius: 2px;
+            --balloon-color: #3F3F36;
+            --balloon-text-color: #fff;
+            --balloon-font-size: 12px;
+            --balloon-move: 4px; 
             
+            --canvas-background: #faf9f8;
+            --header-background: #efedea;
+            --button-background: #c8c3b8;
+
+            --button-bg--h-r: 166;
+            --button-bg--h-g: 159; 
+            --button-bg--h-b: 143;
+            --button-background--hover: rgba(var(--button-bg--h-r), var(--button-bg--h-g), var(--button-bg--h-b), 0.8);
+            --button-background--click: #a69f8f;
+
+            --button-text: #3F3F36;
+            --header-text: #3F3F36;
+            
+            --link-text: #706c61;
+            --link-text--hover: #423f39;
+
+            --button-background--highlight: #36dca8;
+            --button-text--highlight: #124837;
+            }
+            body.dark{
+                --canvas-background: #faf9f8;
+                --header-background: #efedea;
+                --button-background: #c8c3b8;
+            }
             html {
                 height: 100%;
             }
             html,body{
-                background-color: #faf9f8;
+                background-color: var(--canvas-background);
             }
             body {
                 height: 100%;
@@ -37,13 +67,13 @@
                 top:0;
                 left:0;
                 right:0;
-                background-color: #efedea;
+                background-color: var(--header-background);
                 padding:8px;
                 align-items: center;
             }
             .header__title{
                 font-size: 1.75em;
-                color: #3F3F36
+                color: var(--header-text)
             }
             .header__spacer{
                 flex-grow:1
@@ -62,8 +92,8 @@
                 display: none !important;
             }
             .button {
-                background-color: #c8c3b8;
-                color:#3F3F36;
+                background-color: var(--button-background);
+                color:var(--button-text);
                 padding:8px;
                 display: flex;
                 border-radius: 0.4em;
@@ -71,10 +101,10 @@
                 transition:all cubic-bezier(0.39, 0.575, 0.565, 1) 0.2s;
             }
             .button:hover{
-                background-color: rgba(166, 159, 143, 0.8);
+                background-color: var(--button-background--hover);
             }
             .button:active{
-                background-color: #a69f8f;
+                background-color: var(--button-background--click);
             }
             
             
@@ -97,37 +127,30 @@
                 margin-left: 8px;
             }
             a.link {
-                color:#706c61
+                color:var(--link-text)
             }
             a.link:hover{
-                color: #423f39
+                color: var(--link-text--hover)
             }
             .button.-is-highlight{
                 animation: button-highlight 0.7s ease 0.5s 2 normal none;
             }
             @keyframes button-highlight {
                 0.0%{
-                    background: #c8c3b8;
-                    color: #3F3F36;
+                    background: var(--button-background);
+                    color: var(--button-text);
                 }
                 100%{
-                    background: #c8c3b8;
-                    color: #3F3F36;
+                    background: var(--button-background);
+                    color: var(--button-text);
                 }
                 50.2%{
-                    background: #36dca8;
-                    color: #124837;
+                    background: var(--button-background--highlight);
+                    color: var(--button-text--highlight);
                 }
              }
         </style>
 <style>
-
-:root {
-  --balloon-border-radius: 2px;
-  --balloon-color: #3F3F36;
-  --balloon-text-color: #fff;
-  --balloon-font-size: 12px;
-  --balloon-move: 4px; }
 
 button[aria-label][data-balloon-pos] {
   overflow: visible; }
@@ -403,6 +426,7 @@ button[aria-label][data-balloon-pos] {
             }
             socket.onmessage = function (event) {
                 if (onMessage) onMessage(event.data);
+                //console.log("initSocket.socket.onmessage", event.data)
             }
             return socket;
         }
