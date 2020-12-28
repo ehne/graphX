@@ -8,6 +8,7 @@ A graph theory library that isn't *super* gross.
   
 - [Installing](#installing )
   - [Manual](#manual )
+  - [Through Git](#through-git )
 - [Quick Start](#quick-start )
   - [Webserver](#webserver )
   - [Jupyter Notebook](#jupyter-notebook )
@@ -44,7 +45,16 @@ Download the most recent version of graphX from the top of this page. [Download 
   
 Rename it to just `graphX` and place it in the same folder as your code that will be using it.
   
-Then you can import `graphX` from your python files.
+###  Through Git
+  
+run the following in your working directory.
+```bash
+$ git clone https://github.com/ehne/graphX.git
+```
+  
+Installing through git means that it is easier for you to get updates. Simply by running `git pull` inside of the graphX directory graphX will update to the latest version.
+  
+After you have installed graphX, you can import `graphX` from your python files.
   
 > graphX relies on [AlgorithmX](https://algrx.github.io ) for visualisation. So you might have to install that as well.
   
