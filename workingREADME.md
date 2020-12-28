@@ -216,28 +216,6 @@ n.set_attr("seen", False)
 n.get_attr("seen") # returns `False`
 ```
 
-## Important Notes
-#### Multiple Edges Between Two Nodes
-graphX doesn't support having multiple edges between the same pair of nodes. Instead you should create dummy nodes.
-
-```py
-g.add_nodes("AB")
-g.add_edge("A","B", 2)
-g.add_edge("A","B", 3) 
-# this won't make multiple edges, just use the latest one.
-
-# so instead, use:
-g.add_nodes("CD")
-g.add_nodes("ab")
-g.add_edge("C", "a", 2)
-g.add_edge("C", "b", 3)
-g.add_edge("a", "D", 0)
-g.add_edge("b", "D", 0)
-```
-
-whilst this might initially look quite yucky, it is better to be explicit than implicit. And from my experience, having the same two nodes connected by more than one edge is rarely used.
-
-
 ---
 
 ## Previous Works
