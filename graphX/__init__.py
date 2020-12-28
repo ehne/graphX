@@ -78,6 +78,8 @@ class Graph:
         if target not in self.edges:
             self.edges[target] = {}
         self.edges[source][target] = value
+        if not directed:
+            self.edges[target][source] = value
         self.canvas.edge((source, target)).add(directed=directed, color="#c8c3b8")
 
     def del_edge(self, source, target):
