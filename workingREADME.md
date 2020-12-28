@@ -4,8 +4,10 @@ markdown:
 export_on_save:
   markdown: true
 ---
+<p>
+  <img alt="logo" src="assets/github_logo.png" align="center" />
+</p>
 
-# graphX {ignore=true}
 A graph theory library that isn't *super* gross.
 
 [TOC]
@@ -14,13 +16,14 @@ A graph theory library that isn't *super* gross.
 
 **graphX does not work with Python 2. Make sure you have an up to date version of Python installed.**
 
-```bash
-$ pip3 install graphX
-```
+#### Manual
+Download the most recent version of graphX from the top of this page. [Download graphX](https://github.com/ehne/graphX/archive/main.zip)
 
-*note the capital `X`.*
+Rename it to just `graphX` and place it in the same folder as your code that will be using it.
 
-graphX relies on [algorthimX](https://algrx.github.io) for visualisation. So you might have to install that as well.
+Then you can import `graphX` from your python files.
+
+> graphX relies on [algorthimX](https://algrx.github.io) for visualisation. So you might have to install that as well.
 
 ## Quick Start
 There are two ways to get up and running with graphX: via a webserver, or by using jupyter notebooks. They both have their pros and cons.
@@ -48,6 +51,30 @@ g = gx.Graph(is_jupyter=True)
 # run any methods you want and the graph will auto-update.
 ```
 
+## Understanding the graphX web interface
+
+![graphX web interface](assets/graphX_ui.png)
+
+The web interface contains two parts: the header and the graph canvas.
+
+### The Header
+This is the bar at the top of the page, it contains features for controlling the running of your graph code.
+
+![the header controls](assets/header_buttons.png)
+
+The header controls. From left to right: help, play/pause, reset.
+
+- The **help** button opens up the graphX documentation in a new tab. (the graphX docs are just the document you are reading).
+- The **play/pause** button starts your graph code and pauses it. It toggles between the two states.
+- The **reset** button completely clears the graph canvas and resets all variables. It is the same as refreshing your browser window.
+
+### The Graph Canvas
+This is the section where your graph renders. It takes up all of the page, except for where the header is.
+
+Individual nodes can be moved around just by clicking and dragging on them. Likewise the entire graph can be moved around by clicking and dragging anywhere that isn't a node.
+
+To zoom in, scroll up. And to zoom out, scroll down. You can also double click anywhere on the graph to zoom in on that point.
+
 ## The `Graph` Object
 You can create a new graph by making a new instance of the Graph object.
 ```py
@@ -63,7 +90,6 @@ g = gx.Graph(is_jupyter=True)
 # changing the size of the jupyter widget
 g = gx.Graph(width=400, height=100) # default is w=300 h=200
 ```
-
 
 
 ## Methods
@@ -153,7 +179,6 @@ g.traverse_edge("A", "B")
 
 # use a different colour for the traversal:
 g.traverse_edge("B", "C", color="#fa0") # any css colour works
-# the color argument defaults to "#05f", a high-contrast blue.
 ```
 
 ##### `pause(time)`
@@ -219,7 +244,8 @@ whilst this might initially look quite yucky, it is better to be explicit than i
 * **[pynode](https://alexsocha.github.io/pynode/)** is the project that inspired this new library, mostly because pynode doesn't work well on macOS. Nor does it support jupyter notebooks, which nowadays are an incredibly handy tool.
 * **[algorithmX](https://algrx.github.io)** provides all of the graph-rendering technology used under the hood of graphX. However, it is more complicated than pynode and has less useful features, with certain things needing to be implemented by third-parties (like graphX).
 * **[root-11/graph-theory](https://github.com/root-11/graph-theory)** is one of the simplest implementations of graph thinking out there. And as been an excellent source for ways to implement stuff.
-
+* All of the icons in the default ui are **[Heroicons](https://heroicons.dev)**.
+* **[Balloon.css](https://kazzkiq.github.io/balloon.css/)** powers the tooltips in the web version.
 ---
 
 #### ❤️ Thanks {ignore}
