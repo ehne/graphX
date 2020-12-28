@@ -16,14 +16,14 @@ A graph theory library that isn't *super* gross.
 
 **graphX does not work with Python 2. Make sure you have an up to date version of Python installed.**
 
-#### Manual
+### Manual
 Download the most recent version of graphX from the top of this page. [Download graphX](https://github.com/ehne/graphX/archive/main.zip)
 
 Rename it to just `graphX` and place it in the same folder as your code that will be using it.
 
 Then you can import `graphX` from your python files.
 
-> graphX relies on [algorthimX](https://algrx.github.io) for visualisation. So you might have to install that as well.
+> graphX relies on [AlgorithmX](https://algrx.github.io) for visualisation. So you might have to install that as well.
 
 ## Quick Start
 There are two ways to get up and running with graphX: via a webserver, or by using jupyter notebooks. They both have their pros and cons.
@@ -242,7 +242,7 @@ whilst this might initially look quite yucky, it is better to be explicit than i
 
 ## Previous Works
 * **[pynode](https://alexsocha.github.io/pynode/)** is the project that inspired this new library, mostly because pynode doesn't work well on macOS. Nor does it support jupyter notebooks, which nowadays are an incredibly handy tool.
-* **[algorithmX](https://algrx.github.io)** provides all of the graph-rendering technology used under the hood of graphX. However, it is more complicated than pynode and has less useful features, with certain things needing to be implemented by third-parties (like graphX).
+* **[AlgorithmX](https://algrx.github.io)** provides all of the graph-rendering technology used under the hood of graphX. However, it is more complicated than pynode and has less useful features, with certain things needing to be implemented by third-parties (like graphX).
 * **[root-11/graph-theory](https://github.com/root-11/graph-theory)** is one of the simplest implementations of graph thinking out there. And as been an excellent source for ways to implement stuff.
 * All of the icons in the default ui are **[Heroicons](https://heroicons.dev)**.
 * **[Balloon.css](https://kazzkiq.github.io/balloon.css/)** powers the tooltips in the web version.
