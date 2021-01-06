@@ -56,7 +56,7 @@ class Graph:
             self.server.start()
         return wrapper
 
-    def _dispactch_dict(self, dict):
+    def _dispactch_dict(self, dispatch_dict):
         self.canvas.dispatch({"hello":"cool"})
     # Nodes
     def add_node(self, n):
