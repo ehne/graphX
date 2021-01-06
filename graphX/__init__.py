@@ -38,7 +38,7 @@ class Graph:
             # print("loaded Canvas")
             display(self.canvas)
         else:
-            if custom_ui == None:
+            if custom_ui is None:
                 # finds the interface html. This is more complicated than it should be
                 base_path = os.path.relpath(__file__)
                 #custom_ui = str((base_path / "/ui.html").resolve())
