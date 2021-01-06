@@ -287,3 +287,6 @@ n.get_attr("seen") # returns `False`
   
 Written by [@ehne](https://github.com/ehne ) in 2020/21.  Give this project a star if you found it helpful. 
   
+---
+[![CodeFactor](https://www.codefactor.io/repository/github/ehne/graphx/badge/main )](https://www.codefactor.io/repository/github/ehne/graphx/overview/main) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ehne/graphX ) [![GitHub issues](https://img.shields.io/github/issues-raw/ehne/graphX )](https://github.com/ehne/graphX/issues)
+  
