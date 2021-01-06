@@ -53,7 +53,6 @@ class Graph:
         def wrapper():
             self.canvas.onmessage('start', func)
             print(f"staring server on http://localhost:{self.port} — press ctrl+c to quit")
-            # TODO: use custom html template that removes algX branding.
             self.server.start()
         return wrapper
 
