@@ -158,27 +158,16 @@ if __name__ == "__main__":
 
     @g.run_web
     def start():
-        """for i in "graphX":
-            g.add_node(i)
-            g.pause(0.5)
-        g.pause()
-        for i in "graphX":
-            for j in "graphX":
-                g.add_edge(i, j)
-                g.pause(0.25)
-        g.pause()
-        for i in range(len("graphX") -1):
-            g.traverse_edge("graphX"[i], "graphX"[i+1])
-            g.pause(0.5)
-        print(g.get_nodes())"""
 
-        """  g.add_node(1)
+        g.add_node(1)
         for n in range(1, 20):
             n1, n2 = n * 2, n * 2 + 1
             g.add_nodes([n1, n2])
             g.pause(0.2)
             g.add_edge(n1, n)
-            g.add_edge(n2, n) """
+            g.add_edge(n2, n)
+       
+        g.pause()
         g.add_node("—")
 
         g.add_node("lij|' ")
