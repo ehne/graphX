@@ -32,7 +32,13 @@ A graph theory library that isn't *super* gross.
   - [Node Methods:](#node-methods )
       - [`set_attr(attr, value)`](#set_attrattr-value )
       - [`get_attr(attr)`](#get_attrattr )
-- [Previous Works](#previous-works )
+      - [`get_size()`](#get_size )
+- [Contributing](#contributing )
+  - [Found a bug?](#found-a-bug )
+  - [Had an idea for a feature?](#had-an-idea-for-a-feature )
+  - [Need some help figuring out what's going on?](#need-some-help-figuring-out-whats-going-on )
+  - [Want to make a Pull Request (PR)?](#want-to-make-a-pull-request-pr )
+- [Previous works](#previous-works )
   
 ##  Installing
   
@@ -130,7 +136,6 @@ g = gx.Graph(is_jupyter=True)
 # changing the size of the jupyter widget
 g = gx.Graph(width=400, height=100) # default is w=300 h=200
 ```
-  
   
 ##  Methods
   
@@ -272,15 +277,45 @@ n.set_attr("seen", False)
 n.get_attr("seen") # returns `False`
 ```
   
+#####  `get_size()`
+  
+returns the approximate width of the node. this is used internally so that all the node's text is visible against the background of the node. It might not be useful outside of this single purpose, but who knows.
+  
+```py
+g.add_node("hi")
+g.get_node("hi").get_size() # returns 9.8
+```
+  
+##  Contributing 
+  
+###  Found a bug?
+  
+Great! Create a new [issue](https://github.com/ehne/graphX/issues ) and let me know what's going on. Please try to be as specific as possible (this includes info about browser and operating system) as it really helps speed up the bugfixing process.
+  
+###  Had an idea for a feature?
+  
+Wonderful! Just leave a message about your idea in the [ideas discussion board](https://github.com/ehne/graphX/discussions/categories/ideas ).  
+  
+###  Need some help figuring out what's going on?
+  
+That's okay, just let us know what's confusing you on the [Q&A discussion board](https://github.com/ehne/graphX/discussions/categories/q-a ) and someone will help you out shortly.
+  
+###  Want to make a Pull Request (PR)?
+  
+Good to hear that you want to help code graphX! Just fork the repo and leave a pull request whenever you want. Make sure that the reason for your PR is clearly explained (Does it close an issue? Add a new feature? or something else?).
+  
+A note on code style: keep code simple and commented, if it's super complicated, it's probably not a great fit for graphX. (oh, and codefactor should automatically scan any pull requests. We try to keep our grade to at least an A). 
+  
 ---
   
-##  Previous Works
+##  Previous works
   
 * **[pynode](https://alexsocha.github.io/pynode/ )** is the project that inspired this new library, mostly because pynode doesn't work well on macOS. Nor does it support jupyter notebooks, which nowadays are an incredibly handy tool.
 * **[AlgorithmX](https://algrx.github.io )** provides all of the graph-rendering technology used under the hood of graphX. However, it is more complicated than pynode and has less useful features, with certain things needing to be implemented by third-parties (like graphX).
 * **[root-11/graph-theory](https://github.com/root-11/graph-theory )** is one of the simplest implementations of graph thinking out there. And as been an excellent source for ways to implement stuff.
 * All of the icons in the default ui are **[Heroicons](https://heroicons.dev )**.
 * **[Balloon.css](https://kazzkiq.github.io/balloon.css/ )** powers the tooltips in the web version.
+* **[MicroModal](https://micromodal.now.sh )** powers the save image popup.
 ---
   
 ####  ❤️ Thanks
