@@ -78,7 +78,7 @@ class Graph:
     def add_node(self, n):
         """adds node "n" to the graph"""
         self.nodes[n] = Node(n)
-        self.canvas.node(Node(n)).add(color="#423f39")
+        self.canvas.node(Node(n)).add(color="#423f39", size=(Node(n).get_size(),12), shape="rect")
 
     def add_nodes(self, n_list):
         """runs "add_node" for each node in the iterable"""
@@ -151,13 +151,23 @@ if __name__ == "__main__":
             g.traverse_edge("graphX"[i], "graphX"[i+1])
             g.pause(0.5)
         print(g.get_nodes())"""
-        for i in "ab":
-            g.add_node(i)
-        g.pause()
-        g.add_edge("a", "b")
-        g.pause()
-        g.traverse_edge("b", "a")
-        g.pause()
-        g.del_edge("b", "a")
+
+        """  g.add_node(1)
+        for n in range(1, 20):
+            n1, n2 = n * 2, n * 2 + 1
+            g.add_nodes([n1, n2])
+            g.pause(0.2)
+            g.add_edge(n1, n)
+            g.add_edge(n2, n) """
+        g.add_node("—")
+        
+        g.add_node('lij|\' ')
+        g.add_node('![]fI.,:;/\\t')
+        g.add_node('`-(){}r"')
+        g.add_node('*^zcsJkvxy')
+        g.add_node('aebdhnopqug#$L+<>=?_~FZT0123456789')
+        g.add_node('BSPEAKVXY&UwNRCHD')
+        g.add_node('QGOMm%W@—')
+        
         #g._dispactch_dict({})
     start()
