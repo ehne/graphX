@@ -39,7 +39,7 @@ class Node:
             elif s in 'QGOMm%W@—': size += 5
             else: size += 5
         # above code slightly adjusted from: https://stackoverflow.com/questions/16007743/roughly-approximate-the-width-of-a-string-of-text-in-python
-        print("node" ,f"'{self}'", "length before padding", size, "after", size + 5)
+        # print("node" ,f"'{self}'", "length before padding", size, "after", size + 5)
         return size + 5
 
 class Graph:
