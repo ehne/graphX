@@ -94,7 +94,8 @@
                 display: none !important;
             }
             .button {
-                background-color: var(--button-background);
+                --bg: var(--button-background);
+                background-color: var(--bg);
                 color:var(--button-text);
                 padding:8px;
                 display: flex;
@@ -103,16 +104,26 @@
                 transition:all cubic-bezier(0.39, 0.575, 0.565, 1) 0.2s;
             }
             .button:hover{
-                background-color: var(--button-background--hover);
+                --bg: var(--button-background--hover);
+            }
+            .button:focus {
+              /*border: 2px solid red;*/
+              outline: none;
+              box-shadow: inset 0px 0px 0px 2px var(--bg), inset 0px 0px 0px 4px var(--canvas-background);
             }
             .button:active{
-                background-color: var(--button-background--click);
+                --bg: var(--button-background--click)
             }
-            .button.-primary {
-              background-color: var(--button-background--highlight);
-              color: var(--button-text--highlight)
+            .button.-svg {
+              --bg: #f5ba3d;
+              color: #4f3c14
             }
-            
+            .button.-svg:hover {
+              --bg:#EBB23A;
+            }
+            .button.-svg:active {
+              --bg: #e0aa37;
+            }
             .output {
                 flex: auto;
                 display: flex;
@@ -367,7 +378,7 @@ button[aria-label][data-balloon-pos] {
 }
 
 .modal__container {
-  background-color: #fff;
+  background-color: var(--canvas-background);
   padding: 30px;
   max-width: 500px;
   max-height: 100vh;
@@ -388,7 +399,6 @@ button[aria-label][data-balloon-pos] {
   font-weight: 600;
   font-size: 1.25rem;
   line-height: 1.25;
-  color: var(--button-text--highlight);
   box-sizing: border-box;
 }
 
@@ -512,7 +522,7 @@ button[aria-label][data-balloon-pos] {
                       <h3>SVG</h3>
                       <p>• Infinitely scalable</p>
                       <p>• Up to 96% smaller <br>than a PNG</p>
-                      <button class="button" onclick="saveSvg()">Download SVG</button>
+                      <button class="button -svg" onclick="saveSvg()">Download SVG</button>
                     </div>
                     <div class="orbox__half">
                       <h3>PNG</h3>
