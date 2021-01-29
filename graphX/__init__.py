@@ -25,6 +25,22 @@ class Node:
     def get_attr(self, attr):
         """returns an attribute"""
         return self.attrs[attr]
+    
+    def get_size(self):
+        """returns the approximate length the node's graph representation would have to be to show all the text"""
+        size = 0 # in milinches
+        for s in self.val:
+            if s in 'lij|\' ': size += 1.3
+            elif s in '![]fI.,:;/\\t': size += 2
+            elif s in '`-(){}r"': size += 2
+            elif s in '*^zcsJkvxy': size += 3
+            elif s in 'aebdhnopqug#$L+<>=?_~FZT0123456789': size += 3.5
+            elif s in 'BSPEAKVXY&UwNRCHD': size += 4
+            elif s in 'QGOMm%W@—': size += 5
+            else: size += 5
+        # above code slightly adjusted from: https://stackoverflow.com/questions/16007743/roughly-approximate-the-width-of-a-string-of-text-in-python
+        print("node" ,f"'{self}'", "length before padding", size, "after", size + 5)
+        return size + 5
 
 class Graph:
     def __init__(self, is_jupyter=False, port=5050, width=300, height=200, custom_ui=None):
