@@ -26,7 +26,10 @@ A graph theory library that isn't *super* gross.
       - [`del_node(val)`](#del_nodeval )
       - [`add_edge(source, target)`](#add_edgesource-target )
       - [`del_edge(source, target)`](#del_edgesource-target )
+      - [`get_edge(source, target)`](#get_edgesource-target )
       - [`traverse_edge(source, target)`](#traverse_edgesource-target )
+      - [`get_outgoing_edges(source)`](#get_outgoing_edgessource )
+      - [`get_incoming_edges(target)`](#get_incoming_edgestarget )
       - [`pause(time)`](#pausetime )
       - [`clear()`](#clear )
   - [Node Methods:](#node-methods )
@@ -223,6 +226,16 @@ g.add_edge("B", "C")
 g.del_edge("A", "B")
 ```
   
+#####  `get_edge(source, target)`
+  
+returns the edge's weight.
+```py
+g.add_nodes("AB")
+g.add_edge("A", "B", weight=4)
+  
+g.get_edge("A", "B") # returns 4
+```
+  
 #####  `traverse_edge(source, target)`
   
 animates traversing the edge connecting the source and target nodes.
@@ -235,6 +248,31 @@ g.traverse_edge("A", "B")
   
 # use a different colour for the traversal:
 g.traverse_edge("B", "C", color="#fa0") # any css colour works
+```
+  
+#####  `get_outgoing_edges(source)`
+  
+returns tuples of the outgoing edges from the source node.
+```py
+g.add_nodes("ABC")
+# A -> B <- C
+g.add_edge("A", "B", directed=True)
+g.add_edge("C", "B", directed=True)
+  
+g.get_outgoing_edges("A") # returns [("A", "B")]
+g.get_outgoing_edges("C") # returns [("C", "B")]
+```
+  
+#####  `get_incoming_edges(target)`
+  
+returns tuples of the incoming edges to the target node.
+```py
+g.add_nodes("ABC")
+# A -> B <- C
+g.add_edge("A", "B", directed=True)
+g.add_edge("C", "B", directed=True)
+  
+g.get_outgoing_edges("B") # returns [("A", "B"), ("C", "B")]
 ```
   
 #####  `pause(time)`

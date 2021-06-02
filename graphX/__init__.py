@@ -58,7 +58,10 @@ class Graph:
         self, is_jupyter=False, port=5050, width=300, height=200, custom_ui=None
     ):
         self.nodes = {}
+        # stores edges in the form source: target
         self.edges = {}
+        # reverse edges dict is used to store the edges in the form of target: source
+        self.reverse_edges = {}
         self.canvas = ""
         self.port = port
         if is_jupyter:
@@ -74,7 +77,7 @@ class Graph:
                 custom_ui = f"{Path(base_path).parent}/ui.html"
             print("serving ui found at", custom_ui)
             self.server = ax.http_server(port=port, file=custom_ui)
-            self.canvas = self.server.canvas()
+            self.canvas = self.server.canvas()#.edgelayout("individual")
 
     # boring running stuff for web
     def run_web(self, func):
@@ -88,7 +91,7 @@ class Graph:
         return wrapper
 
     def _dispactch_dict(self, dispatch_dict):
-        self.canvas.dispatch({"hello": "cool"})
+        self.canvas.dispatch(dispatch_dict)
 
     # Nodes
     def add_node(self, n):
@@ -117,7 +120,7 @@ class Graph:
         self.canvas.node(val).remove()
 
     # Edges
-    def add_edge(self, source, target, value=1, directed=False):
+    def add_edge(self, source, target, value=1, directed=False, weight=1):
         """adds edges between source and target nodes. if it isn't directed it will also add a target to source edge."""
         # adds dict to source node edges if there are no other edges
         if source not in self.edges:
@@ -130,16 +133,20 @@ class Graph:
         # if it isn't directed, add the edge the other way as well.
         if not directed:
             self.edges[target][source] = value
+        # update the reverse dict
+        self._update_reverse_edge_dict()
         # draw the s->t edge on the canvas.
-        self.canvas.edge((source, target)).add(directed=directed, color="#c8c3b8")
+        self.canvas.edge((source, target)).add(directed=directed, color="#c8c3b8", labels={0:{'text':weight}})
 
     def del_edge(self, source, target):
         """deletes a specified edge between a target and a source"""
         self.edges[source].pop(target, None)
         # checks if the edge is stored the other way around as well (undirected)
         if source in self.edges[target]:
-            print("[warning]", "deleting undirected edge", f"{source}->{target}")
+            print("[warning]", "deleting undirected edge", f"{target}->{source}")
             self.edges[target].pop(target, None)
+        # update the reverse dict
+        self._update_reverse_edge_dict()
         # deletes the edge from the canvas
         self.canvas.edge((source, target)).remove()
 
@@ -147,6 +154,24 @@ class Graph:
         """plays a little animation going from the source node to the target node along their edge"""
         self.canvas.edge((source, target)).traverse(color)
 
+    def get_edge(self, source, target):
+        return self.edges[source][target]
+
+    def get_outgoing_edges(self, source):
+        """returns the edges (as tuples) leaving the source node"""
+        return [(source, target) for target in self.edges[source]]
+
+    def get_incoming_edges(self, target):
+        """returns the edges (as tuples) that are entering the target node"""
+        return [(source, target) for source in self.reverse_edges[target]]
+    def _update_reverse_edge_dict(self):
+        # clear the dict so that deleted edges don't play havoc.
+        self.reverse_edges = {}
+        for target in self.nodes:
+            self.reverse_edges[target] = {}
+        for source, target_dict in self.edges.items():
+            for target, val in target_dict.items():
+                self.reverse_edges[target].update({source: val})
     # general, graph-wide, methods
     def pause(self, time=1):
         """pauses the animation for `time` seconds"""
@@ -159,25 +184,16 @@ if __name__ == "__main__":
     @g.run_web
     def start():
 
-        g.add_node(1)
-        for n in range(1, 20):
-            n1, n2 = n * 2, n * 2 + 1
-            g.add_nodes([n1, n2])
-            g.pause(0.2)
-            g.add_edge(n1, n)
-            g.add_edge(n2, n)
-       
-        g.pause()
-        g.add_node("—")
+        g.add_nodes([1,2,3,4])
 
-        g.add_node("lij|' ")
-        g.add_node("![]fI.,:;/\\t")
-        g.add_node('`-(){}r"')
-        g.add_node("*^zcsJkvxy")
-        g.add_node("aebdhnopqug#$L+<>=?_~FZT0123456789")
-        g.add_node("BSPEAKVXY&UwNRCHD")
-        g.add_node("QGOMm%W@—")
-
+        g.add_edge(4, 2, weight=60)
+        g.add_edge(1, 2, weight=80)
+        g.add_edge(1, 3, weight=120)
+        g.add_edge(2, 3, weight=70)
+        g.add_edge(3, 4, weight=90)
+        print(g.edges)
+        print(g.reverse_edges)
+        print(g.get_incoming_edges(1))
         # g._dispactch_dict({})
 
     start()

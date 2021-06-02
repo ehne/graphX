@@ -175,6 +175,15 @@ g.add_edge("B", "C")
 g.del_edge("A", "B")
 ```
 
+##### `get_edge(source, target)`
+returns the edge's weight.
+```py
+g.add_nodes("AB")
+g.add_edge("A", "B", weight=4)
+
+g.get_edge("A", "B") # returns 4
+```
+
 ##### `traverse_edge(source, target)`
 animates traversing the edge connecting the source and target nodes.
 ```py
@@ -186,6 +195,29 @@ g.traverse_edge("A", "B")
 
 # use a different colour for the traversal:
 g.traverse_edge("B", "C", color="#fa0") # any css colour works
+```
+
+##### `get_outgoing_edges(source)`
+returns tuples of the outgoing edges from the source node.
+```py
+g.add_nodes("ABC")
+# A -> B <- C
+g.add_edge("A", "B", directed=True)
+g.add_edge("C", "B", directed=True)
+
+g.get_outgoing_edges("A") # returns [("A", "B")]
+g.get_outgoing_edges("C") # returns [("C", "B")]
+```
+
+##### `get_incoming_edges(target)`
+returns tuples of the incoming edges to the target node.
+```py
+g.add_nodes("ABC")
+# A -> B <- C
+g.add_edge("A", "B", directed=True)
+g.add_edge("C", "B", directed=True)
+
+g.get_outgoing_edges("B") # returns [("A", "B"), ("C", "B")]
 ```
 
 ##### `pause(time)`
